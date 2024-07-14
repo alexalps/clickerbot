@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Кликер</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            background-color: #f5f5f5;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .tab-content {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        #counter {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .upgrade {
+            margin-bottom: 20px;
+        }
+
+        .upgrade h3 {
+            margin-top: 0;
+        }
+
+        .daily-tasks li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .daily-gift {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .event-banner {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Кликер</h1>
+        <div class="tabs">
+            <div class="tab active">Кликер</div>
+            <div class="tab">Улучшения</div>
+            <div class="tab">Энергия</div>
+            <div class="tab">Информация</div>
+        </div>
+        <div class="content">
+            <div class="tab-content" style="display: block;">
+                <div class="event-banner" id="event-banner" style="display: none;">
+                    Ура, релиз! Все ваши клики сейчас удваиваются!
+                </div>
+                <div id="counter">0</div>
+                <button id="click-button">Кликни меня!</button>
+            </div>
+            <div class="tab-content" style="display: none;">
+                <div class="upgrades">
+                    <div class="upgrade">
+                        <h3>Автоматический Кликер</h3>
+                        
+                        <p>Увеличивает количество кликов на 1 в секунду.</p>
+                        <button>Купить</button>
+                    </div>
+                    <div class="upgrade">
+                        <h3>Усиленные Пальцы</h3>
+                        <p>Увеличивает количество кликов на 10% за клик.</p>
+                        <button>Купить</button>
+                    </div>
+                    <div class="upgrade">
+                        <h3>Кибер Клик</h3>
+                        <p>Увеличивает количество кликов на 25% за клик.</p>
+                        <button>Купить</button>
+                    </div>
+                    <div class="upgrade">
+                        <h3>Клик Импульс</h3>
+                        <p>Увеличивает количество кликов на 50% за клик.</p>
+                        <button>Купить</button>
+                    </div>
+                </div>
+                <div class="combo-upgrade">
+                    <h3>Комбо-улучшение</h3>
+                    <p>Описание комбо-улучшения</p>
+                    <button>Купить</button>
+                </div>
+                <div class="daily-tasks">
+                    <h3>Ежедневные задания</h3>
+                    <ul>
+                        <li>
+                            <span>Выполните 100 кликов</span>
+                            <button>Выполнить</button>
+                        </li>
+                        <li>
+                            <span>Получите ежедневный подарок</span>
+                            <button>Выполнить</button>
+                        </li>
+                        <li>
+                            <span>Купите одно улучшение</span>
+                            <button>Выполнить</button>
+                        </li>
+                        <!-- Добавьте больше ежедневных заданий по необходимости -->
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content" style="display: none;">
+                <h2>Энергия</h2>
+                <p>Описание энергии и как её использовать</p>
+            </div>
+            <div class="tab-content" style="display: none;">
+                <h2>Информация</h2>
+                <p>Дополнительная информация о кликере</p>
+                <div class="daily-gift">
+                    <h3>Ежедневный подарок</h3>
+                    <p>Получите свой ежедневный подарок!</p>
+                    <button>Получить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let autoClickInterval;
+        let eventMultiplier = 1;
+        let eventEndTime = null;
+        const counterElement = document.getElementById('counter');
+        const clickButton = document.getElementById('click-button');
+        const tabElements = document.querySelectorAll('.tab');
+        const tabContentElements = document.querySelectorAll('.tab-content');
+        const dailyTaskButtons = document.querySelectorAll('.daily-tasks button');
+        const dailyGiftButton = document.querySelector('.daily-gift button');
+        const eventBannerElement = document.getElementById('event-banner');
+
+        // Данные о ежедневных заданиях
+        const dailyTasks = [
+            {
+                title: 'Выполните 100 кликов',
+                description: 'Кликните 100 раз, чтобы выполнить это задание.',
+                completed: false
+            },
+            {
+                title: 'Получите ежедневный подарок',
+                description: 'Получите ваш ежедневный подарок, чтобы выполнить это задание.',
+                completed: false
+            },
+            {
+                title: 'Купите одно улучшение',
+                description: 'Приобретите одно из доступных улучшений, чтобы выполнить это задание.',
+                completed: false
+            }
+            // Добавьте больше ежедневных заданий по необходимости
+        ];
+
+        // Данные об ежедневном подарке
+        let dailyGiftReceived = false;
+
+        // Данные об улучшениях
+        let upgrades = [
+            { name: 'Автоматический Кликер', cost: 10, bonus: 1 },
+            { name: 'Усиленные Пальцы', cost: 50, bonus: 0.1 },
+            { name: 'Кибер Клик', cost: 150, bonus: 0.25 },
+            { name: 'Клик Импульс', cost: 500, bonus: 0.5 },
+            // Добавьте больше улучшений по необходимости
+        ];
+
+        // Функция для обновления интерфейса
+        function updateUI() {
+            counterElement.textContent = (clickCount * eventMultiplier).toFixed(2);
+            dailyTaskButtons.forEach((button, index) => {
+                button.textContent = dailyTasks[index].completed ? 'Выполнено' : 'Выполнить';
+            });
+            dailyGiftButton.textContent = dailyGiftReceived ? 'Уже получено' : 'Получить';
+            eventBannerElement.style.display = eventMultiplier > 1 ? 'block' : 'none';
+        }
+
+        clickButton.addEventListener('click', function() {
+            clickCount++;
+            updateUI();
+        });
+
+        tabElements.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                // Снять активность со всех вкладок
+                tabElements.forEach(t => t.classList.remove('active'));
+                tabContentElements.forEach(c => {
+                    c.style.display = 'none';
+                    c.style.animation = 'none'; // Сброс анимации
+                });
+
+                // Активировать выбранную вкладку
+                tab.classList.add('active');
+                tabContentElements[index].style.display = 'block';
+                void tabContentElements[index].offsetWidth; // Триггер повторного рендеринга, чтобы применить анимацию
+                tabContentElements[index].style.animation = 'fadeIn 0.5s ease';
+            });
+        });
+
+        // Автоматический клик, когда окно неактивно
+        window.addEventListener('focus', () => {
+            clearInterval(autoClickInterval);
+        });
+
+        window.addEventListener('blur', () => {
+            autoClickInterval = setInterval(() => {
+                clickCount++;
+                updateUI();
+            }, 1000); // Клик раз в секунду
+        });
+
+        // Обработка ежедневных заданий
+        dailyTaskButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                if (!dailyTasks[index].completed) {
+                    if (index === 0) {
+                        // Задание "Выполните 100 кликов"
+                        if (clickCount >= 100) {
+                            dailyTasks[index].completed = true;
+                            updateUI();
+                            console.log(`Задание "${dailyTasks[index].title}" выполнено!`);
+                            // Добавьте логику начисления наград
+                        } else {
+                            console.log('Недостаточно кликов для выполнения задания.');
+                        }
+                    } else if (index === 1) {
+                        // Задание "Получите ежедневный подарок"
+                        if (!dailyGiftReceived) {
+                            dailyTasks[index].completed = true;
+                            dailyGiftReceived = true;
+                            updateUI();
+                            console.log(`Задание "${dailyTasks[index].title}" выполнено!`);
+                            
+                            // Добавьте логику начисления наград
+                        } else {
+                            console.log('Ежедневный подарок уже получен.');
+                        }
+                    } else if (index === 2) {
+                        // Задание "Купите одно улучшение"
+                        // Логика для покупки улучшения
+                        console.log(`Задание "${dailyTasks[index].title}" выполнено!`);
+                        dailyTasks[index].completed = true;
+                        updateUI();
+                        // Добавьте логику начисления наград
+                    }
+                }
+            });
+        });
+
+        // Обработка ежедневного подарка
+        dailyGiftButton.addEventListener('click', () => {
+            if (!dailyGiftReceived) {
+                dailyGiftReceived = true;
+                updateUI();
+                console.log('Ежедневный подарок получен!');
+                // Добавьте логику начисления наград за получение ежедневного подарка
+            }
+        });
+
+        // Ивент "Ура Релиз"
+        function startEvent() {
+            eventMultiplier = 2;
+            eventEndTime = Date.now() + (2 * 24 * 60 * 60 * 1000); // Длительность ивента 2 дня
+            updateUI();
+            console.log('Ивент "Ура Релиз" начался!');
+        }
+
+        function checkEventStatus() {
+            if (eventEndTime && Date.now() > eventEndTime) {
+                eventMultiplier = 1;
+                eventEndTime = null;
+                updateUI();
+                console.log('Ивент "Ура Релиз" закончился.');
+            }
+        }
+
+        // Запуск ивента "Ура Релиз"
+        startEvent();
+
+        // Проверка статуса ивента каждую секунду
+        setInterval(checkEventStatus, 1000);
+    </script>
+</body>
+</html>
